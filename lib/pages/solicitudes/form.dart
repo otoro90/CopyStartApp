@@ -1,7 +1,8 @@
+import 'package:copystart/models/solicitudes/Solicitud.dart';
 import 'package:flutter/material.dart';
 
 class FormPage extends StatelessWidget {
-  final List<Text> solicitud;
+  final Solicitud solicitud;
 
   FormPage({@required this.solicitud});
 
