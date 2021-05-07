@@ -11,6 +11,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,10 +19,13 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: _body(),
+      
     );
   }
 
   Widget _body() {
-    return Column(children: [TablePage()]);
+    return Column(children: [TablePage()]
+    );
+   
   }
 }
