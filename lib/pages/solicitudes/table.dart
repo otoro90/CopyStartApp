@@ -10,32 +10,39 @@ class _TablePageState extends State<TablePage> {
   List<Solicitud> solicitudes;
   @override
   Widget build(BuildContext context) {
-   return DataTable(
-columns: const <DataColumn>[
+    return DataTable(
+      columnSpacing: 10,
+      columns: const <DataColumn>[
         DataColumn(
           label: Text(
-            'No. Servicio',
+            'No.',
             style: TextStyle(fontStyle: FontStyle.italic),
           ),
         ),
         DataColumn(
           label: Text(
-            'Serial equipo',
+            'Serial',
             style: TextStyle(fontStyle: FontStyle.italic),
           ),
         ),
         DataColumn(
           label: Text(
-            'Problema o falla',
+            'Cliente',
             style: TextStyle(fontStyle: FontStyle.italic),
           ),
         ),
-        // DataColumn(
-        //   label: Text(
-        //     'Acciones',
-        //     style: TextStyle(fontStyle: FontStyle.italic),
-        //   ),
-        // ),
+        DataColumn(
+          label: Text(
+            'Celular',
+            style: TextStyle(fontStyle: FontStyle.italic),
+          ),
+        ),
+        DataColumn(
+          label: Text(
+            'Acciones',
+            style: TextStyle(fontStyle: FontStyle.italic),
+          ),
+        ),
       ],
       rows: const <DataRow>[
         DataRow(
@@ -43,21 +50,11 @@ columns: const <DataColumn>[
             DataCell(Text('1')),
             DataCell(Text('1459')),
             DataCell(Text('Mantenimiento')),
-            //DataCell(Text('E')),
-          ],
-        ),
-        DataRow(
-          cells: <DataCell>[
-            DataCell(Text('2')),
-            DataCell(Text('4ASD43')),
             DataCell(Text('Falla electrica')),
-            //DataCell(Text('E')),
+            DataCell(Icon(Icons.delete)),
           ],
         ),
-        
       ],
-      
     );
-
   }
 }
