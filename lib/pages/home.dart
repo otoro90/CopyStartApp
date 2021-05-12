@@ -22,6 +22,7 @@ class _MyHomePageState extends State<MyHomePage> {
       body: _body(),
       floatingActionButton: Center(
         child: RaisedButton(
+          color: Colors.blueAccent,
           onPressed: () {
             setState(() {
               Navigator.push(
@@ -39,7 +40,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           accion: "Crear nuevo servicio")));
             });
           },
-          child: Text('Crear servicio'),
+          child: Text('Crear servicio'), textColor: Colors.white, 
         ),
       ),
     );
