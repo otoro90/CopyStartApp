@@ -51,7 +51,7 @@ class _TablePageState extends State<TablePage> {
             DataCell(Text('1459')),
             DataCell(Text('Mantenimiento')),
             DataCell(Text('Falla electrica')),
-            DataCell(Icon(Icons.delete)),
+            DataCell(Icon(Icons.delete))
           ],
         ),
       ],
