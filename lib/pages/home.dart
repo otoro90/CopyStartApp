@@ -1,6 +1,7 @@
 import 'package:copystart/models/solicitudes/Solicitud.dart';
 import 'package:copystart/pages/solicitudes/form.dart';
 import 'package:copystart/pages/solicitudes/table.dart';
+import 'package:copystart/providers/solicitudes/SolicitudesProvider.dart';
 import 'package:flutter/material.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -13,6 +14,16 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  final SolicitudesProvider solicitudesProvider = SolicitudesProvider();
+
+  Future<List<Solicitud>> solicitudes;
+
+  @override
+  void initState() {
+    solicitudes = solicitudesProvider.obtenerSolicitudes();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,24 +32,22 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: _body(),
       floatingActionButton: Center(
-        child: RaisedButton(
+        child: ElevatedButton(
           color: Colors.blueAccent,
           onPressed: () {
-            setState(() {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => FormPage(
-                          solicitud: new Solicitud(
-                              id: 0,
-                              serialEquipo: "",
-                              nombreCliente: "",
-                              celularCliente: 0,
-                              direccionCliente: "",
-                              descripcion: "",
-                              fechaSolicitud: null),
-                          accion: "Crear nuevo servicio")));
-            });
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => FormPage(
+                        solicitud: new Solicitud(
+                            id: 0,
+                            serialEquipo: "",
+                            nombreCliente: "",
+                            celularCliente: 0,
+                            direccionCliente: "",
+                            descripcion: "",
+                            fechaSolicitud: new DateTime.now()),
+                        accion: "Crear nuevo servicio")));
           },
           child: Text('Crear servicio'), textColor: Colors.white, 
         ),
@@ -47,6 +56,18 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Widget _body() {
-    return Column(children: [TablePage()]);
+    return FutureBuilder(
+        future: solicitudes,
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          if (snapshot.hasData) {
+            List<Solicitud> datos = snapshot.data as List<Solicitud>;
+
+            return TablePage(solicitudes: datos);
+          } else {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+        });
   }
 }

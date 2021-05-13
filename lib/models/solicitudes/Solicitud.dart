@@ -14,4 +14,16 @@ class Solicitud {
   String direccionCliente;
   String descripcion;
   DateTime fechaSolicitud;
+
+  factory Solicitud.fromJson(Map<String, dynamic> json) {
+    return Solicitud(
+      id: json['id'],
+      serialEquipo: json['serialEquipo'],
+      nombreCliente: json['nombreCliente'],
+      celularCliente: json['celularCliente'],
+      direccionCliente: json['direccionCliente'],
+      descripcion: json['descripcion'],
+      fechaSolicitud: DateTime.parse(json['fechaSolicitud']),
+    );
+  }
 }
