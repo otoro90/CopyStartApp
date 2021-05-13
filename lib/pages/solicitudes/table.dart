@@ -1,13 +1,25 @@
 import 'package:copystart/models/solicitudes/Solicitud.dart';
+import 'package:copystart/providers/solicitudes/SolicitudesProvider.dart';
 import 'package:flutter/material.dart';
 
 class TablePage extends StatefulWidget {
+  TablePage({Key key, this.solicitudes}) : super(key: key);
+
+  List<Solicitud> solicitudes;
   @override
-  _TablePageState createState() => _TablePageState();
+  _TablePageState createState() => _TablePageState(solicitudes);
 }
 
 class _TablePageState extends State<TablePage> {
-  List<Solicitud> solicitudes;
+  final SolicitudesProvider solicitudesProvider = SolicitudesProvider();
+  Future<bool> estadoDelete;
+
+  List<Solicitud> solicitudes = [];
+
+  _TablePageState(List<Solicitud> solicitudesApi) {
+    solicitudes.addAll(solicitudesApi);
+  }
+
   @override
   Widget build(BuildContext context) {
     return DataTable(
@@ -44,16 +56,42 @@ class _TablePageState extends State<TablePage> {
           ),
         ),
       ],
-      rows: const <DataRow>[
-        DataRow(
-          cells: <DataCell>[
-            DataCell(Text('1')),
-            DataCell(Text('1459')),
-            DataCell(Text('Mantenimiento')),
-            DataCell(Text('Falla electrica')),
-            DataCell(Icon(Icons.delete))
-          ],
-        ),
+      rows: [
+        for (var solicitud in solicitudes)
+          DataRow(
+            cells: [
+              DataCell(Text("${solicitud.id}")),
+              DataCell(Text("${solicitud.serialEquipo}")),
+              DataCell(Text("${solicitud.nombreCliente}")),
+              DataCell(Text("${solicitud.celularCliente}")),
+              DataCell(Row(
+                children: [
+                  IconButton(
+                    icon: const Icon(Icons.edit),
+                    tooltip: 'Editar solicitud',
+                    onPressed: () {
+                      setState(() {
+                        solicitudes.remove(solicitud);
+                      });
+                    },
+                  ),
+                  IconButton(
+                      icon: const Icon(Icons.delete),
+                      tooltip: 'Eliminar solicitud',
+                      onPressed: () async {
+                        var eliminarSolicitud = await solicitudesProvider
+                            .eliminarSolicitud(solicitud.id);
+                        if (eliminarSolicitud) {
+                          setState(() {
+                            solicitudes.remove(solicitud);
+                          });
+                        }
+                      })
+                ],
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+              ))
+            ].toList(),
+          ),
       ],
     );
   }
