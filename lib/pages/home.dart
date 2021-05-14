@@ -26,15 +26,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: _body(),
-      floatingActionButton: Center(
-        child: ElevatedButton(
-          color: Colors.blueAccent,
-          onPressed: () {
+    var elevatedButton = ElevatedButton(
+            onPressed: () {
             Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -49,8 +42,15 @@ class _MyHomePageState extends State<MyHomePage> {
                             fechaSolicitud: new DateTime.now()),
                         accion: "Crear nuevo servicio")));
           },
-          child: Text('Crear servicio'), textColor: Colors.white, 
-        ),
+          child: Text('Crear servicio'),  
+        );
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.title),
+      ),
+      body: _body(),
+      floatingActionButton: Center(
+        child: elevatedButton,
       ),
     );
   }

@@ -6,6 +6,7 @@ import 'dart:async';
 class SolicitudesProvider {
   static const String baseUrl = "copystartapp.azurewebsites.net";
 
+  // ignore: missing_return
   Future<List<Solicitud>> obtenerSolicitudes() async {
     try {
       List<Solicitud> solicitudes = [];
@@ -26,6 +27,7 @@ class SolicitudesProvider {
     }
   }
 
+  // ignore: missing_return
   Future<bool> crearSolicitud(Solicitud solicitud) async {
     try {
       var url = Uri.https(baseUrl, '/api/SolicitudesServicio');
@@ -45,6 +47,7 @@ class SolicitudesProvider {
     }
   }
 
+  // ignore: missing_return
   Future<bool> editarSolicitud(Solicitud solicitud) async {
     try {
       var url = Uri.https(baseUrl, '/api/SolicitudesServicio/${solicitud.id}');
@@ -64,6 +67,7 @@ class SolicitudesProvider {
     }
   }
 
+  // ignore: missing_return
   Future<bool> eliminarSolicitud(int solicitudId) async {
     try {
       var url = Uri.https(baseUrl, '/api/SolicitudesServicio/$solicitudId');

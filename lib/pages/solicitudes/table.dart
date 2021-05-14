@@ -2,6 +2,7 @@ import 'package:copystart/models/solicitudes/Solicitud.dart';
 import 'package:copystart/providers/solicitudes/SolicitudesProvider.dart';
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class TablePage extends StatefulWidget {
   TablePage({Key key, this.solicitudes}) : super(key: key);
 
@@ -23,36 +24,36 @@ class _TablePageState extends State<TablePage> {
   @override
   Widget build(BuildContext context) {
     return DataTable(
-      columnSpacing: 10,
+      columnSpacing: 28,
       columns: const <DataColumn>[
         DataColumn(
           label: Text(
             'No.',
-            style: TextStyle(fontStyle: FontStyle.italic),
+            style: TextStyle(fontStyle: FontStyle.italic, fontWeight: FontWeight.bold),
           ),
         ),
         DataColumn(
           label: Text(
             'Serial',
-            style: TextStyle(fontStyle: FontStyle.italic),
+            style: TextStyle(fontStyle: FontStyle.italic, fontWeight: FontWeight.bold),
           ),
         ),
         DataColumn(
           label: Text(
             'Cliente',
-            style: TextStyle(fontStyle: FontStyle.italic),
+            style: TextStyle(fontStyle: FontStyle.italic, fontWeight: FontWeight.bold),
           ),
         ),
         DataColumn(
           label: Text(
             'Celular',
-            style: TextStyle(fontStyle: FontStyle.italic),
+            style: TextStyle(fontStyle: FontStyle.italic, fontWeight: FontWeight.bold),
           ),
         ),
         DataColumn(
           label: Text(
             'Acciones',
-            style: TextStyle(fontStyle: FontStyle.italic),
+            style: TextStyle(fontStyle: FontStyle.italic, fontWeight: FontWeight.bold),
           ),
         ),
       ],
