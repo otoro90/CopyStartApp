@@ -1,9 +1,12 @@
 import 'package:copystart/models/solicitudes/Solicitud.dart';
+import 'package:copystart/pages/home.dart';
+import 'package:copystart/providers/solicitudes/SolicitudesProvider.dart';
 import 'package:flutter/material.dart';
 
 class FormPage extends StatelessWidget {
   final Solicitud solicitud;
   final String accion;
+  final SolicitudesProvider solicitudesProvider = SolicitudesProvider();
 
   FormPage({@required this.solicitud, this.accion});
 
@@ -13,53 +16,15 @@ class FormPage extends StatelessWidget {
       appBar: AppBar(
         title: Text(accion),
       ),
-      body: MyCustomForm(),
-    );
-  }
-}
-
-// Crea un Widget Form
-class MyCustomForm extends StatefulWidget {
-  @override
-  MyCustomFormState createState() {
-    return MyCustomFormState();
-  }
-}
-
-// Crea una clase State correspondiente. Esta clase contendrá los datos relacionados con el formulario.
-class MyCustomFormState extends State<MyCustomForm> {
-  get contentPadding => null;
-
-  // Crea una clave global que identificará de manera única el widget Form
-  // y nos permita validar el formulario
-  //
-  // Nota: Esto es un GlobalKey<FormState>, no un GlobalKey<MyCustomFormState>!
-  //final _formKey = GlobalKey<FormState>();
-
-  @override
-  Widget build(BuildContext context) {
-    // Crea un widget Form usando el _formKey que creamos anteriormente
-
-    return Padding(
-      padding: const EdgeInsets.all(20.0),
-      child: Expanded(
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20),
         child:
             Column(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
           TextFormField(
-              //key: _formKey,
-              decoration: const InputDecoration(
-                icon: Icon(Icons.calendar_today_sharp),
-                hintText: 'Ingresa la fecha de solicitud',
-                labelText: 'Fecha de solicitud',
-                contentPadding: const EdgeInsets.all(10.0),
-              ),
-              validator: (String value) {
-                return (value != null && value.contains('@'))
-                    ? 'Do not use the @ char.'
-                    : null;
-              }),
-          TextFormField(
-              //key: _formKey,
+              initialValue: solicitud.nombreCliente,
+              onChanged: (text) {
+                solicitud.nombreCliente = text;
+              },
               decoration: const InputDecoration(
                 icon: Icon(Icons.people),
                 hintText: 'Ingresa tu nombre completo',
@@ -73,6 +38,10 @@ class MyCustomFormState extends State<MyCustomForm> {
               }),
           TextFormField(
               //key: _formKey,
+              onChanged: (text) {
+                solicitud.serialEquipo = text;
+              },
+              initialValue: solicitud.serialEquipo,
               decoration: const InputDecoration(
                 icon: Icon(Icons.confirmation_number_outlined),
                 hintText: 'Ingresa el serial del equipo en servicio',
@@ -86,6 +55,12 @@ class MyCustomFormState extends State<MyCustomForm> {
               }),
           TextFormField(
               //  key: _formKey,
+              onChanged: (text) {
+                solicitud.celularCliente = int.parse(text);
+              },
+              initialValue: solicitud.celularCliente == 0
+                  ? ""
+                  : solicitud.celularCliente.toString(),
               decoration: const InputDecoration(
                 icon: Icon(Icons.contact_phone_outlined),
                 hintText: 'Ingresa tu número de celular',
@@ -99,6 +74,10 @@ class MyCustomFormState extends State<MyCustomForm> {
               }),
           TextFormField(
               //key: _formKey,
+              onChanged: (text) {
+                solicitud.descripcion = text;
+              },
+              initialValue: solicitud.descripcion,
               decoration: const InputDecoration(
                 icon: Icon(Icons.description),
                 hintText:
@@ -112,7 +91,20 @@ class MyCustomFormState extends State<MyCustomForm> {
                     : null;
               }),
           ElevatedButton(
-            onPressed: () {},
+            onPressed: () async {
+              if (solicitud.id == 0) {
+                await solicitudesProvider.crearSolicitud(solicitud);
+              } else {
+                await solicitudesProvider.editarSolicitud(solicitud);
+              }
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                    builder: (context) =>
+                        MyHomePage(title: 'IMPORTACIONES COPY START')),
+                (Route<dynamic> route) => false,
+              );
+            },
             child: Text('Guardar'),
           )
         ]),
