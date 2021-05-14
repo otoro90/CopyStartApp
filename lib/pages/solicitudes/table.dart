@@ -28,7 +28,7 @@ class _TablePageState extends State<TablePage> {
     return Column(
       children: [
         DataTable(
-          columnSpacing: 28,
+          columnSpacing: 10,
           columns: const <DataColumn>[
             DataColumn(
               label: Text(
