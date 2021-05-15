@@ -30,14 +30,8 @@ class FormPage extends StatelessWidget {
                 hintText: 'Ingresa tu nombre completo',
                 labelText: 'Nombre del cliente',
                 contentPadding: const EdgeInsets.all(10.0),
-              ),
-              validator: (String value) {
-                return (value != null && value.contains('@'))
-                    ? 'Do not use the @ char.'
-                    : null;
-              }),
+              )),
           TextFormField(
-              //key: _formKey,
               onChanged: (text) {
                 solicitud.serialEquipo = text;
               },
@@ -47,14 +41,8 @@ class FormPage extends StatelessWidget {
                 hintText: 'Ingresa el serial del equipo en servicio',
                 labelText: 'Serial del equipo',
                 contentPadding: const EdgeInsets.all(10.0),
-              ),
-              validator: (String value) {
-                return (value != null && value.contains('@'))
-                    ? 'Do not use the @ char.'
-                    : null;
-              }),
+              )),
           TextFormField(
-              //  key: _formKey,
               onChanged: (text) {
                 solicitud.celularCliente = int.parse(text);
               },
@@ -66,14 +54,8 @@ class FormPage extends StatelessWidget {
                 hintText: 'Ingresa tu número de celular',
                 labelText: 'Celular del cliente',
                 contentPadding: const EdgeInsets.all(10.0),
-              ),
-              validator: (String value) {
-                return (value != null && value.contains('@'))
-                    ? 'Do not use the @ char.'
-                    : null;
-              }),
+              )),
           TextFormField(
-              //key: _formKey,
               onChanged: (text) {
                 solicitud.descripcion = text;
               },
@@ -84,12 +66,7 @@ class FormPage extends StatelessWidget {
                     'Describe la falla o el problema que presenta el equipo',
                 labelText: 'Descripción de la falla presentada',
                 contentPadding: const EdgeInsets.all(10.0),
-              ),
-              validator: (String value) {
-                return (value != null && value.contains('@'))
-                    ? 'Do not use the @ char.'
-                    : null;
-              }),
+              )),
           ElevatedButton(
             onPressed: () async {
               if (solicitud.id == 0) {
